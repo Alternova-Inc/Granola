@@ -438,6 +438,7 @@
     static NSDictionary* allQuantityTypeIdsToClasses = nil;
     if (allQuantityTypeIdsToClasses == nil) {
         allQuantityTypeIdsToClasses = @{
+                                        HKQuantityTypeIdentifierAppleWalkingSteadiness: @"OMHSerializerGenericQuantitySample",
                                         HKQuantityTypeIdentifierActiveEnergyBurned: @"OMHSerializerEnergyBurned",
                                         HKQuantityTypeIdentifierAppleExerciseTime: @"OMHSerializerGenericQuantitySample",
                                         HKQuantityTypeIdentifierAppleStandTime: @"OMHSerializerGenericQuantitySample",
