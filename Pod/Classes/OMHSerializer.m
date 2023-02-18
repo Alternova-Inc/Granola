@@ -430,11 +430,11 @@
 - (id)bodyData {
     NSString* unitString = @"%";
     HKUnit* unit = [HKUnit unitFromString:unitString];
-    double value = [[(HKQuantitySample*)self.sample quantity] doubleValueForUnit:unit];
+    float value = [[(HKQuantitySample*)self.sample quantity] doubleValueForUnit:unit];
     
     return @{
              @"oxygen_saturation": @{
-                     @"value": [NSNumber numberWithDouble:value*100],
+                     @"value": [NSNumber numberWithDouble:value],
                      @"unit": unitString
                      },
              @"effective_time_frame": [self populateTimeFrameProperty:self.sample.startDate endDate:self.sample.endDate]
@@ -618,10 +618,11 @@
 - (id)bodyData {
     NSString* unitString = @"%";
     HKUnit* unit = [HKUnit unitFromString:unitString];
-    double value = [[(HKQuantitySample*)self.sample quantity] doubleValueForUnit:unit];
+    float value =
+    [[(HKQuantitySample*)self.sample quantity] doubleValueForUnit:unit];
     return @{
              @"body_fat_percentage": @{
-                     @"value": [NSNumber numberWithDouble:value*100],
+                     @"value": [NSNumber numberWithDouble:value],
                      @"unit": unitString
                      },
              @"effective_time_frame": [self populateTimeFrameProperty:self.sample.startDate endDate:self.sample.endDate]
@@ -783,21 +784,7 @@
     HKQuantitySample *quantitySample = (HKQuantitySample*)self.sample;
     HKQuantity *quantity = [quantitySample quantity];
     NSMutableDictionary *serializedUnitValues = [NSMutableDictionary new];
-    
-    if ([[OMHSerializer parseUnitFromQuantity:quantity] isEqualToString:@"%"]) {
-        
-        // Types that use "%" units are compatible with the "count" unit (in the next condition), so this condition to pre-empts that.
-        NSNumber* value = [NSNumber numberWithDouble:[quantity doubleValueForUnit:[HKUnit percentUnit]]];
-        
-        [serializedUnitValues addEntriesFromDictionary:@{
-                                                         @"unit_value":@{
-                                                                 @"value": @([value floatValue] * 100),
-                                                                 @"unit": @"%"
-                                                                 }
-                                                         }
-         ];
-    }
-    else if ([quantity isCompatibleWithUnit:[HKUnit unitFromString:@"count"]]) {
+    if ([quantity isCompatibleWithUnit:[HKUnit unitFromString:@"count"]]) {
         [serializedUnitValues addEntriesFromDictionary:@{
                                                          @"count": [NSNumber numberWithDouble:[quantity doubleValueForUnit:[HKUnit unitFromString:@"count"]]]
                                                          }

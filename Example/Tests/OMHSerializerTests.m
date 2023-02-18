@@ -652,32 +652,6 @@ describe(@"HKQuantityTypeIdentifierInhalerUsage with date_time", ^{
     });
 });
 
-describe(@"Generic quantity sample with percent unit", ^{
-    itShouldBehaveLike(@"AnySerializerForSupportedSample",^{
-        NSDate *start = [NSDate date];
-        NSDate *end = start;
-        NSNumber *value = [NSNumber numberWithDouble:.127];
-        NSString *unitString = @"%";
-        HKSample *sample = [OMHSampleFactory typeIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent
-                                                      attrs:@{@"value":value,
-                                                              @"unitString":unitString,
-                                                              @"start":start,
-                                                              @"end":end}];
-        return @{
-                 @"sample":sample,
-                 @"pathsToValues": @{
-                         @"header.schema_id.name": @"hk-quantity-sample",
-                         @"header.schema_id.namespace":@"granola",
-                         @"header.schema_id.version": @"1.0",
-                         @"body.quantity_type":[HKQuantityTypeIdentifierBloodAlcoholContent description],
-                         @"body.unit_value.value":@12.7,
-                         @"body.unit_value.unit":@"%",
-                         @"body.effective_time_frame.date_time":[start RFC3339String]
-                         }
-                 };
-    });
-});
-
 describe(HKCorrelationTypeIdentifierFood,^{
     itShouldBehaveLike(@"AnySerializerForSupportedSample", ^{
         NSDate *sampleDate = [NSDate date];
@@ -1084,7 +1058,7 @@ describe(@"HKCategoryTypeIdentifierSexualActivity", ^{
 describe(@"HKQuantityTypeIdentifierOxygenSaturation with time_interval", ^{
     itShouldBehaveLike(@"AnySerializerForSupportedSample",^{
         NSDate *start = [NSDate date];
-        NSNumber *value = [NSNumber numberWithDouble:.961];
+        NSNumber *value = [NSNumber numberWithFloat:96.1];
         NSString *unitString = @"%";
         HKSample *sample = [OMHSampleFactory typeIdentifier:HKQuantityTypeIdentifierOxygenSaturation
                                                       attrs:@{@"value":value,
@@ -1097,7 +1071,7 @@ describe(@"HKQuantityTypeIdentifierOxygenSaturation with time_interval", ^{
                          @"header.schema_id.name": @"oxygen-saturation",
                          @"header.schema_id.namespace":@"omh",
                          @"header.schema_id.version": @"1.0",
-                         @"body.oxygen_saturation.value":@96.1,
+                         @"body.oxygen_saturation.value":value,
                          @"body.oxygen_saturation.unit":unitString,
                          @"body.effective_time_frame.date_time":[start RFC3339String]
                          }
@@ -1135,7 +1109,7 @@ describe(@"HKQuantityTypeIdentifierBodyFatPercentage with time_interval", ^{
     itShouldBehaveLike(@"AnySerializerForSupportedSample",^{
         NSDate *start = [NSDate date];
         NSDate *end = [start dateByAddingTimeInterval:3600];
-        NSNumber *value = [NSNumber  numberWithDouble:.232];
+        NSNumber *value = [NSNumber numberWithFloat:23.2];
         NSString *unitString = @"%";
         HKSample *sample = [OMHSampleFactory typeIdentifier:HKQuantityTypeIdentifierBodyFatPercentage
                                                       attrs:@{@"value":value,
@@ -1148,7 +1122,7 @@ describe(@"HKQuantityTypeIdentifierBodyFatPercentage with time_interval", ^{
                          @"header.schema_id.name": @"body-fat-percentage",
                          @"header.schema_id.namespace":@"omh",
                          @"header.schema_id.version": @"1.0",
-                         @"body.body_fat_percentage.value": @23.2,
+                         @"body.body_fat_percentage.value": value,
                          @"body.body_fat_percentage.unit": unitString,
                          @"body.effective_time_frame.time_interval.start_date_time": [sample.startDate RFC3339String],
                          @"body.effective_time_frame.time_interval.end_date_time": [sample.endDate RFC3339String]
