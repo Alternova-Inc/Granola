@@ -9,7 +9,8 @@ Pod::Spec.new do |s|
                          "Chris Schaefbauer" => "chris.schaefbauer@openmhealth.org",
                          "Emerson Farrugia" => "emerson@openmhealth.org",
                          "Simona Carini" => "simona@openmhealth.org",
-                         "Esteban Ramos" => "julianramos@alternova.co" }
+                         "Esteban Ramos" => "julianramos@alternova.co",
+                         "Fabian Barrios" => "fabian.barrios@alternova.com" }
   s.source           = { :git => "https://github.com/Alternova-Inc/Granola.git",
                          :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/openmhealth'
